@@ -52,7 +52,7 @@ def flip(s):
     for i in range(len(s)):
         sP = []
         for j in range(len(s)):
-            if(i == h) or (j == v):
+            if(i == h) and (j == v):
                 sP.append(-s[i][j])
             else:
                 sP.append(s[i][j])
