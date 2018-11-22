@@ -22,12 +22,12 @@ def Energy(s):
 
     return H
 
-def MonteCarlo(s, T):
+def MonteCarlo(s, Temperature):
     H = Energy(s)
     s_ = flip(s)
     H_ = Energy(s_)
-    if T > 0:
-        beta = 1 / T
+    if Temperature > 0:
+        beta = 1 / Temperature
     else:
         beta = 100000000000.0
     # print (H_, H)
@@ -79,33 +79,31 @@ s = array(s)
 U = Energy(s)
 
 print (U)
-
-dt = 0.01
+Y = []
+dt = 0.001
 T = 10
 t = 0
 Temperature = 100.0
 deltaT = 1
 while t<T:
     s = MonteCarlo(s, Temperature)
-    # print (Energy(s))
+    Y.append(Energy(s))
     t = t + dt
 
 M = np.arange(0, Temperature, deltaT, float)
-
+X = np.arange(0, T+dt, dt, float)
 t = 0
 temp = 0.0
-Y = []
-while temp < Temperature:
-    while t < T:
-        # print ("flow reached here!", temp, t, Temperature)
-        s = MonteCarlo(s, temp)
-        t = t + dt
-    t = 0
-    temp = temp + deltaT
-    S = sum(s)
-    S = fabs(sum(S))/(len(s)*len(s))
-    Y.append(S)
-    # print (S)
+# while temp < Temperature:
+#     while t < T:
+#         # print ("flow reached here!", temp, t, Temperature)
+#         s = MonteCarlo(s, temp)
+#         t = t + dt
+#     t = 0
+#     temp = temp + deltaT
+#     S = sum(s)
+#     S = fabs(sum(S))/(len(s)*len(s))
+#     # print (S)
 
-plt.plot(M, Y)
+plt.plot(X, Y)
 plt.show()
